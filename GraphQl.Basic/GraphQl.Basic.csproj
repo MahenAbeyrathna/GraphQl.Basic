@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0-preview.59" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
+  </ItemGroup>
+
 </Project>
