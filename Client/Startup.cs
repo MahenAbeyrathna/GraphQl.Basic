@@ -1,5 +1,10 @@
+using GraphQI.Server.DTO;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +31,12 @@ namespace Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<Query>();
+            services.AddGraphQL(p => SchemaBuilder.New().AddServices(p)
+                     .AddType<StudentCourses>()
+                     .AddQueryType<Query>()
+                     .Create()
+                     );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,18 +45,30 @@ namespace Client
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UsePlayground(new PlaygroundOptions
+                {
+                    QueryPath = "/api",
+                    Path = "/playground"
+                });
             }
-
+            app.UseGraphQL("/api");
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
         }
     }
 }
