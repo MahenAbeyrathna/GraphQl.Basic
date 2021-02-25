@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GraphQI.Server.DTO
 {
-    public class QueryType : HotChocolate.Types.ObjectType<StudentCourses>
+    public class QueryType : HotChocolate.Types.ObjectType<StudentCoursesData>
     {
     }
 }

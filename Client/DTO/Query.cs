@@ -5,11 +5,11 @@ namespace GraphQI.Server.DTO
 {
     public class Query
     {
-        List<StudentCourses> list;
+        StudentCoursesData list;
         public Query()
         {
-            list = new ServerManager().GetData().Result.ToList();
+            list = new ServerManager().GetData().Result;
         }
-        public List<StudentCourses> StudentCourses => list;
+        public StudentCoursesData StudentCourses => list;
     }
 }

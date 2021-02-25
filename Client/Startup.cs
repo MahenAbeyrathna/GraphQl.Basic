@@ -33,7 +33,7 @@ namespace Client
             services.AddControllers();
             services.AddScoped<Query>();
             services.AddGraphQL(p => SchemaBuilder.New().AddServices(p)
-                     .AddType<StudentCourses>()
+                     .AddType<StudentCoursesData>()
                      .AddQueryType<Query>()
                      .Create()
                      );

@@ -10,7 +10,7 @@ namespace GraphQI.Server
 {
     public class ServerManager
     {
-        public  async Task<IEnumerable<StudentCourses>> GetData()
+        public  async Task<StudentCoursesData> GetData()
         {
             List<Student> studentList = new List<Student>();
             List<Course> courseList = new List<Course>();
@@ -44,8 +44,13 @@ namespace GraphQI.Server
                              Id = s.Id,
                              Courses = c.CourseName
                          });
-
-            return result;
+            StudentCoursesData data = new StudentCoursesData()
+            {
+                StudentCoursesList = result.ToList(),
+                StudentList = studentList,
+                CourseList = courseList
+            };
+            return data;
         }
         private static HttpClient GetHttpClient(string baseUrl)
         {
